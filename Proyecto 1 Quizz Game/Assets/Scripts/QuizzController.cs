@@ -15,12 +15,17 @@ public class QuizzController : MonoBehaviour
     public bool stop = false;
     public List<int> numberRandom;
     public GameObject[] questions;
+    public GameObject[] panelesCorrecto;
+    public GameObject[] panelesIncorrecto;
     public GameObject[] canvas;
     public TextMeshProUGUI puntos;
     public TextMeshProUGUI puntosFinale;
     public TextMeshProUGUI puntosMaximos;
     public TextMeshProUGUI puntosMaximos2;
     int maximos = 0;
+    int contadorCorrecto = 0;
+    int contadorIncorrecto = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -110,12 +115,16 @@ public class QuizzController : MonoBehaviour
     public void CorrectQuestion(Button boton)
     {
         StartCoroutine(CorrectQuestionCoroutine(boton));
+        panelesCorrecto[contadorCorrecto].SetActive(true);
+        contadorCorrecto++;
     }
 
     //Método para activar la corrutina de las respuestas incorrectas.
     public void IncorrectQuestions(Button boton)
     {
         StartCoroutine(IncorrectQuestionsCoroutine(boton));
+        panelesIncorrecto[contadorIncorrecto].SetActive(true);
+        contadorIncorrecto++;
     }
 
     //Corrutina que le da función al botón de respuesta correcta.

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
@@ -17,10 +18,14 @@ public class QuizzController : MonoBehaviour
     public GameObject[] canvas;
     public TextMeshProUGUI puntos;
     public TextMeshProUGUI puntosFinale;
+    public TextMeshProUGUI puntosMaximos;
+    public TextMeshProUGUI puntosMaximos2;
+    int maximos = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+
         canvas[0].SetActive(true);
         canvas[1].SetActive(false);
         canvas[2].SetActive(false);
@@ -43,12 +48,30 @@ public class QuizzController : MonoBehaviour
         }
 
         ActiveQuestion();
+
+        maximos = PlayerPrefs.GetInt("maximo");
+        puntosMaximos.text = maximos.ToString();
+        
     }
 
+    //Metodo que inicia el Quizz
     public void BotonInicio(Button boton)
     {
         canvas[0].SetActive(false);
         canvas[1].SetActive(true);
+    }
+
+    //Método que avisa si superaste el record.
+    public void PuntajeMaximo()
+    {
+        if (maximos <= points)
+        {
+            puntosMaximos2.text = "Felicidades tienes el puntaje más alto";
+        }
+        else
+        {
+            puntosMaximos2.text = "Sigue intentandolo el record es de: " + maximos.ToString();
+        }
     }
     
     //Método que activa y desactiva las preguntas.
@@ -75,6 +98,12 @@ public class QuizzController : MonoBehaviour
     public void ColoreaBoton(Button boton)
     {
         boton.image.color = Color.green;
+    }
+
+    //Método que reinicia el juego.
+    public void Reinicia()
+    {
+        SceneManager.LoadScene(0);
     }
 
     //Método para activar la corrutina de la respuesta correcta.
@@ -136,6 +165,13 @@ public class QuizzController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (numberQuestion == countQuestions)
+        {
+            if (maximos < points)
+            {
+                PlayerPrefs.SetInt("maximo", points);
+            }
+        }
+        PuntajeMaximo();
     }
 }

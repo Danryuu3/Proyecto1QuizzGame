@@ -97,7 +97,7 @@ public class QuizzController : MonoBehaviour
             boton.image.color = Color.green;
             points += 100;
             puntos.text = points.ToString();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(.5f);
             ActiveQuestion();
         }
         else
@@ -105,10 +105,10 @@ public class QuizzController : MonoBehaviour
             boton.image.color = Color.green;
             points += 100;
             puntos.text = points.ToString();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             canvas[1].SetActive(false);
             canvas[2].SetActive(true);
-            puntosFinale.text = points.ToString();
+            puntosFinale.text = "Has logrado " + points.ToString() + " puntos";
         }
     }
 
@@ -119,17 +119,17 @@ public class QuizzController : MonoBehaviour
         {
             boton.image.color = Color.red;
             puntos.text = points.ToString();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             ActiveQuestion();
         }
         else
         {
             boton.image.color = Color.red;
             puntos.text = points.ToString();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             canvas[1].SetActive(false);
             canvas[2].SetActive(true);
-            puntosFinale.text = points.ToString();
+            puntosFinale.text = "Has logrado " + points.ToString() + " puntos";
         }
     }
 
